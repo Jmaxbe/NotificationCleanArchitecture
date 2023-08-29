@@ -1,5 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{760ADA25-2AE2-4B63-A497-50D8DDC47F79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{94183799-1D4A-4B0C-A672-9FDB51991720}"
@@ -8,13 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9052B08F-1EC5-4D59-B347-D72E0886C871}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{84479963-A56D-49B3-994F-7B6F12BDDEB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{84479963-A56D-49B3-994F-7B6F12BDDEB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C2EEE6A4-09EE-441E-90F7-DB13624395B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C2EEE6A4-09EE-441E-90F7-DB13624395B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{13097DA5-3637-42CF-B27E-C87441FF0D6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{13097DA5-3637-42CF-B27E-C87441FF0D6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationAPI", "NotificationAPI\NotificationAPI.csproj", "{B5B42EF6-112B-4CCE-8F34-1FBED883B433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationAPI", "NotificationAPI\NotificationAPI.csproj", "{B5B42EF6-112B-4CCE-8F34-1FBED883B433}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DA1B640A-673C-43CF-BBCF-2B69474E88FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +43,13 @@ Global
 		{B5B42EF6-112B-4CCE-8F34-1FBED883B433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5B42EF6-112B-4CCE-8F34-1FBED883B433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5B42EF6-112B-4CCE-8F34-1FBED883B433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA1B640A-673C-43CF-BBCF-2B69474E88FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA1B640A-673C-43CF-BBCF-2B69474E88FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA1B640A-673C-43CF-BBCF-2B69474E88FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA1B640A-673C-43CF-BBCF-2B69474E88FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{94183799-1D4A-4B0C-A672-9FDB51991720} = {760ADA25-2AE2-4B63-A497-50D8DDC47F79}

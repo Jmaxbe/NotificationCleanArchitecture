@@ -3,12 +3,17 @@ using System.Security.Claims;
 using Application.Common.Interfaces;
 using Jaeger.Senders;
 using Jaeger.Senders.Thrift;
+using KafkaFlow;
+using KafkaFlow.Serializer;
+using KafkaFlow.TypedHandler;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using NotificationAPI.Filters;
+using NotificationAPI.Handlers;
+using NotificationAPI.Producers;
 using NotificationAPI.Services;
 using OpenTracing;
 using OpenTracing.Util;
@@ -38,6 +43,8 @@ public static class ServiceInitializer
         AddLogging(services, configuration);
 
         AddJaeger(services);
+        
+        AddKafka(services, configuration);
 
         return services;
     }
@@ -128,5 +135,37 @@ public static class ServiceInitializer
         });
      
         services.AddOpenTracing();
+    }
+
+    private static void AddKafka(IServiceCollection services, IConfiguration configuration)
+    {
+        const string producerName = "NotifyReporterHandler";
+        const string topicName = "NotifyTopic";//TODO:Вынести, если будет необходимость
+        
+        services.AddKafka(kafka => kafka
+            .UseMicrosoftLog()
+            .AddCluster(cluster=> cluster
+                .WithBrokers(configuration.GetSection("KafkaHosts").Get<string[]>())
+                .CreateTopicIfNotExists(topicName, 6, 1)
+                .AddProducer<NotifyEventProducer>(producer=> producer
+                    .DefaultTopic(topicName)
+                    .AddMiddlewares(m=>m.AddSerializer<JsonCoreSerializer>())
+                    .WithAcks(Acks.All))
+                .AddProducer(producerName,
+                    producer=> producer
+                        .DefaultTopic(topicName)
+                        .AddMiddlewares(m=>m.AddSerializer<JsonCoreSerializer>())
+                        .WithAcks(Acks.All))
+                .AddConsumer(consumer=> consumer
+                    .Topic(topicName)
+                    .WithGroupId("handler-notify-topic-group")
+                    .WithBufferSize(100)
+                    .WithWorkersCount(3)
+                    .AddMiddlewares(middlewares=>middlewares
+                        .AddSerializer<JsonCoreSerializer>()
+                        .AddTypedHandlers(h=>h.AddHandler<PrintConsoleHandler>())
+                    ))
+            )
+        );
     }
 }

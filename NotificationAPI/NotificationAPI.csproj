@@ -1,9 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>1d8dbe18-3da8-4830-b05d-0a28e37525b4</UserSecretsId>
+        <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -15,16 +18,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Confluent.Kafka" Version="2.2.0" />
         <PackageReference Include="FluentValidation" Version="11.6.0" />
         <PackageReference Include="Jaeger" Version="1.0.3" />
         <PackageReference Include="Jaeger.Core" Version="1.0.3" />
         <PackageReference Include="Jaeger.Senders.Thrift" Version="1.0.3" />
+        <PackageReference Include="KafkaFlow" Version="2.4.0" />
+        <PackageReference Include="KafkaFlow.LogHandler.Microsoft" Version="2.4.0" />
+        <PackageReference Include="KafkaFlow.Microsoft.DependencyInjection" Version="2.4.0" />
+        <PackageReference Include="KafkaFlow.Serializer" Version="2.4.0" />
+        <PackageReference Include="KafkaFlow.Serializer.JsonCore" Version="2.4.0" />
+        <PackageReference Include="KafkaFlow.TypedHandler" Version="2.4.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.9" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
         <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.9.0" />
         <PackageReference Include="prometheus-net" Version="8.0.1" />
         <PackageReference Include="prometheus-net.AspNetCore" Version="8.0.1" />
@@ -43,6 +54,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

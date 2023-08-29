@@ -14,9 +14,9 @@ public static class MiddlewareInitializer
             app.UseSwaggerUI();
 
             using var scope = app.Services.CreateScope();
-            var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
-            await initialiser.InitialiseAsync();
-            await initialiser.SeedAsync();
+            var initializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+            await initializer.InitialiseAsync();
+            await initializer.SeedAsync();
         }
 
         app.UseMiddleware<GlobalErrorHandlingMiddleware>();

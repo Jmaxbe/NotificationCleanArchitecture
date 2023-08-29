@@ -13,5 +13,6 @@ var app = builder.Build();
 
 await app.ConfigureMiddleware();
 app.RegisterEndpoints();
+await app.StartKafkaBus();
 
-app.Run();
+await app.RunAsync();

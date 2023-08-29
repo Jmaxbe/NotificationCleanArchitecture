@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  notificationapi:
+    container_name: notificationapi
+    hostname: notificationapi
+    image: ${DOCKER_REGISTRY-}notificationapi
+    build:
+      context: .
+      dockerfile: NotificationAPI/Dockerfile
+    ports:
+      - "23644:80"
+    restart: unless-stopped
+    depends_on:
+      - notificationapidb
+    networks:
+      - default
+      
+  notificationapidb:
+    image: postgres:15.3
+    container_name: notificationapidb
+    hostname: notificationapidb
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: "notify_table"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "k@}ujt4A-(z@yWAn"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d staff_time_table" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - "5433:5432"
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: default-bridge

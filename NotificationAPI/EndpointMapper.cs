@@ -1,4 +1,5 @@
-﻿using Prometheus;
+﻿using KafkaFlow;
+using Prometheus;
 
 namespace NotificationAPI;
 
@@ -23,6 +24,14 @@ public static class EndpointMapper
 
         app.MapControllers();
         
+        return app;
+    }
+    
+    public static async Task<WebApplication> StartKafkaBus(this WebApplication app)
+    {
+        var kafkaBus = app.Services.CreateKafkaBus();
+        await kafkaBus.StartAsync();
+
         return app;
     }
 }
